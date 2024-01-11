@@ -66,12 +66,16 @@ namespace Crawler
             Console.WriteLine("Kategeri Seç (Başındaki sayı ile seçim yapılmaktadır.)");
             string allKategori = Console.ReadLine();
             if(allKategori == "0")
-            {
+            { 
                 Kategori kategori = new Kategori();
                 await kategori.GetKategori();
 
                 Console.WriteLine("Kategeri Seç (Başındaki sayı ile seçim yapılmaktadır.)");
                 allKategori = Console.ReadLine();
+            }
+            if(allKategori == "0") 
+            {
+                await Sec();
             }
             Console.WriteLine("Lütfen şehrinizin plaka numarasını giriniz.");
             string city = Console.ReadLine();
