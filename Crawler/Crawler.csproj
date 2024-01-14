@@ -70,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="bubiletCrawler.cs" />
+    <Compile Include="City.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="hızCrawler.cs" />
     <Compile Include="Kategori.cs" />
@@ -79,6 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="City.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

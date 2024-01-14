@@ -26,6 +26,8 @@ namespace Crawler
         {
             try
             {
+                //City city = new City();
+                //await city.GetCityEvent(34);
                 //BuBiletCrawler crawler = new BuBiletCrawler();
                 //await crawler.Konser();
                 //await crawler.Tiyatro();
@@ -43,6 +45,7 @@ namespace Crawler
             }
            
         }
+
 
         public static async Task Sec()
         {

@@ -205,6 +205,9 @@ namespace Crawler
                                     var mekan = await MekanGet(seans.mekanId);
                                     if (mekan.SehirId.ToString() == cityId || etkinlikData.tumSehirlerdeGoster == true)
                                     {
+                                        City city = new City();
+                                        var cityName = await city.ReadCity(mekan.SehirId);
+
                                         worksheet.Cells[rowIndex, 2].Value = "bubilet.com";
                                         worksheet.Cells[rowIndex, 3].Value = etkinlikData.etkinlikId;
                                         worksheet.Cells[rowIndex, 4].Value = etkinlikData.etkinlikAdi;
@@ -213,7 +216,7 @@ namespace Crawler
                                         worksheet.Cells[rowIndex, 7].Value = seans.tarih;
                                         worksheet.Cells[rowIndex, 8].Value = seans.indirimliFiyat;
                                         worksheet.Cells[rowIndex, 9].Value = mekan.Adres;
-                                        var hyperlink = new ExcelHyperLink($"https://www.bubilet.com.tr/istanbul/etkinlik/{etkinlikData.slug}");
+                                        var hyperlink = new ExcelHyperLink($"https://www.bubilet.com.tr/{cityName.ToLower()}/etkinlik/{etkinlikData.slug}");
                                         worksheet.Cells[rowIndex, 1].Hyperlink = hyperlink;
                                         worksheet.Cells[rowIndex, 1].Style.Font.UnderLine = true;
 
@@ -227,7 +230,7 @@ namespace Crawler
                             }
                             package.Save();
                         }
-
+                        Console.WriteLine();
                         Console.WriteLine("Excel dosyası oluşturuldu.");
                     }
                     else
