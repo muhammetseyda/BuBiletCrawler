@@ -7,16 +7,16 @@ Bubilet.com.tr websitesindeki etkinlikleri il ve kategori bazlı olarak bir exce
 Program bir consol uygulamasıdır. İsteyen geliştiricilere .exe formatlarınıda gönderebilirim.
 
 1. Çalıştırma
-![Uygulama Ekran Görüntüsü](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+![Uygulama Ekran Görüntüsü](https://github.com/muhammetseyda/Crawler/blob/master/1.png)
 
 2. Kategori seçme
-![Uygulama Ekran Görüntüsü](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+![Uygulama Ekran Görüntüsü](https://github.com/muhammetseyda/Crawler/blob/master/2.png)
 
 3. İl seçme
-![Uygulama Ekran Görüntüsü](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+![Uygulama Ekran Görüntüsü](https://github.com/muhammetseyda/Crawler/blob/master/3.png)
 
 4. Çıktı
-![Uygulama Ekran Görüntüsü](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+![Uygulama Ekran Görüntüsü](https://github.com/muhammetseyda/Crawler/blob/master/4.png)
 
 # Dikkat Edilmesi Gereken Husular
 
