@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Crawler
 {
-    internal class hizCrawler : IDisposable
+    public class pulladnbeer
     {
         public List<Product> urunler = new List<Product>();
         public class Product
@@ -18,13 +18,12 @@ namespace Crawler
             public double PriceListe { get; set; }
             public double PriceIndirimli { get; set; }
         }
-        public hizCrawler(string key)
+        public pulladnbeer()
         {
-            key = key.Replace("\n", "");
-            key = key.Replace(" ", "%20");
+            
             var httpClient = new HttpClient();
 
-            var response = httpClient.GetAsync("https://onlinesatis.hizyayinlari.com/Arama?1&kelime=" + key).Result;
+            var response = httpClient.GetAsync("https://www.pullandbear.com/tr/gumus-rengi-biker-ceket-l03710313?pelement=602084876&categoryId=1030210554#colorId=808").Result;
             var contents = response.Content.ReadAsStringAsync().Result;
 
             HtmlAgilityPack.HtmlDocument htmlDoc = new HtmlAgilityPack.HtmlDocument();

@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Xml.Linq;
+using static Crawler.BuBiletCrawler;
 using static Crawler.Program;
 
 namespace Crawler
@@ -151,43 +152,44 @@ namespace Crawler
                         List<Etkinlik> etkinlikDataList = JsonConvert.DeserializeObject<List<Etkinlik>>(responseBody);
                         
                         Console.WriteLine("Veriler alınıyor...");
+                        City cityforname = new City();
+                        var cityname = await cityforname.ReadCity(Convert.ToInt32(cityId));
                         
+                        Kategori kategoriadi = new Kategori();
+                        var kategoriName = await kategoriadi.SelectKategoriName(id);
 
                         ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
                         FileInfo excelFile = new FileInfo("BubiletVerileri.xlsx");
                         using (ExcelPackage package = new ExcelPackage(excelFile))
                         {
-                            ExcelWorksheet existingWorksheet = package.Workbook.Worksheets.FirstOrDefault(sheet => sheet.Name == $"Bubilet{id}");
+                            kategoriName = kategoriName.ToUpper();
+                            ExcelWorksheet existingWorksheet = package.Workbook.Worksheets.FirstOrDefault(sheet => sheet.Name == $"{cityname} {kategoriName.ToUpper()}");
                             if (existingWorksheet != null)
                             {
                                 package.Workbook.Worksheets.Delete(existingWorksheet);
                             }
-                            ExcelWorksheet worksheet = package.Workbook.Worksheets.Add($"Bubilet{id}");
+                            ExcelWorksheet worksheet = package.Workbook.Worksheets.Add($"{cityname} {kategoriName.ToUpper()}");
 
-                            worksheet.Cells[1, 2].Value = "Bilet Sitesi";
-                            worksheet.Cells[1, 3].Value = "Etkinlik Id";
-                            worksheet.Cells[1, 4].Value = "Etkinlik Adı";
-                            worksheet.Cells[1, 5].Value = "Sanatçı";
-                            worksheet.Cells[1, 6].Value = "Mekan Adı";
-                            worksheet.Cells[1, 7].Value = "Tarih";
-                            worksheet.Cells[1, 8].Value = "Fiyat";
-                            worksheet.Cells[1, 9].Value = "Mekan Adresi";
+                            worksheet.Cells[1, 2].Value = "Etkinlik Adı";
+                            worksheet.Cells[1, 3].Value = "Sanatçı";
+                            worksheet.Cells[1, 4].Value = "Mekan Adı";
+                            worksheet.Cells[1, 5].Value = "Tarih";
+                            worksheet.Cells[1, 6].Value = "Fiyat";
+                            worksheet.Cells[1, 7].Value = "Mekan Adresi";
                             worksheet.Cells[1, 1].Value = "Link";
-                            worksheet.Cells[1, 1, 1, 9].Style.Font.Bold = true;
-                            worksheet.Cells[1, 1, 1, 9].Style.Font.Size = 14;
-                            worksheet.Cells[1, 1, 1, 9].AutoFilter = true;
+                            worksheet.Cells[1, 1, 1, 7].Style.Font.Bold = true;
+                            worksheet.Cells[1, 1, 1, 7].Style.Font.Size = 14;
+                            worksheet.Cells[1, 1, 1, 7].AutoFilter = true;
 
 
                             worksheet.Column(1).Width = 10;
-                            worksheet.Column(2).Width = 13;
-                            worksheet.Column(3).Width = 13;
-                            worksheet.Column(4).Width = 40;
-                            worksheet.Column(5).Width = 30;
-                            worksheet.Column(7).Style.Numberformat.Format = "dd.MM.yyyy HH:mm";
-                            worksheet.Column(6).Width = 35;
-                            worksheet.Column(7).Width = 20;
-                            worksheet.Column(8).Width = 10;
-                            worksheet.Column(9).Width = 50;
+                            worksheet.Column(2).Width = 40;
+                            worksheet.Column(3).Width = 30;
+                            worksheet.Column(5).Style.Numberformat.Format = "dd.MM.yyyy HH:mm";
+                            worksheet.Column(4).Width = 35;
+                            worksheet.Column(5).Width = 20;
+                            worksheet.Column(6).Width = 10;
+                            worksheet.Column(7).Width = 50;
 
 
                             int rowIndex = 2;
@@ -203,19 +205,17 @@ namespace Crawler
                                 foreach (var seans in etkinlikData.seanslar)
                                 {
                                     var mekan = await MekanGet(seans.mekanId);
-                                    if (mekan.SehirId.ToString() == cityId || etkinlikData.tumSehirlerdeGoster == true)
+                                    if (mekan.SehirId.ToString() == cityId)
                                     {
                                         City city = new City();
                                         var cityName = await city.ReadCity(mekan.SehirId);
 
-                                        worksheet.Cells[rowIndex, 2].Value = "bubilet.com";
-                                        worksheet.Cells[rowIndex, 3].Value = etkinlikData.etkinlikId;
-                                        worksheet.Cells[rowIndex, 4].Value = etkinlikData.etkinlikAdi;
-                                        worksheet.Cells[rowIndex, 5].Value = sanatciNames;
-                                        worksheet.Cells[rowIndex, 6].Value = mekan.Baslik;
-                                        worksheet.Cells[rowIndex, 7].Value = seans.tarih;
-                                        worksheet.Cells[rowIndex, 8].Value = seans.indirimliFiyat;
-                                        worksheet.Cells[rowIndex, 9].Value = mekan.Adres;
+                                        worksheet.Cells[rowIndex, 2].Value = etkinlikData.etkinlikAdi;
+                                        worksheet.Cells[rowIndex, 3].Value = sanatciNames;
+                                        worksheet.Cells[rowIndex, 4].Value = mekan.Baslik;
+                                        worksheet.Cells[rowIndex, 5].Value = seans.tarih;
+                                        worksheet.Cells[rowIndex, 6].Value = seans.indirimliFiyat;
+                                        worksheet.Cells[rowIndex, 7].Value = mekan.Adres;
                                         var hyperlink = new ExcelHyperLink($"https://www.bubilet.com.tr/{cityName.ToLower()}/etkinlik/{etkinlikData.slug}");
                                         worksheet.Cells[rowIndex, 1].Hyperlink = hyperlink;
                                         worksheet.Cells[rowIndex, 1].Style.Font.UnderLine = true;

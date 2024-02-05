@@ -16,6 +16,7 @@ using System.Windows.Media;
 using System.Xml.Linq;
 using static Crawler.Kategori;
 using static Crawler.Program;
+using static Crawler.pulladnbeer;
 
 namespace Crawler
 {
@@ -26,14 +27,8 @@ namespace Crawler
         {
             try
             {
-                //City city = new City();
-                //await city.GetCityEvent(34);
-                //BuBiletCrawler crawler = new BuBiletCrawler();
-                //await crawler.Konser();
-                //await crawler.Tiyatro();
-                //Kategori kategori = new Kategori();
-                //await kategori.GetKategori();
                 await Sec();
+                //await pull();
 
                 Console.WriteLine("Çıkmak için bir tuşa basın...");
                 Console.ReadKey();
@@ -45,7 +40,17 @@ namespace Crawler
             }
            
         }
-
+        //public static async Task pull()
+        //{
+        //    try {
+        //        pulladnbeer pulladnbeer = new pulladnbeer();
+        //        Console.WriteLine(pulladnbeer);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine(ex.Message);
+        //    } 
+        //}
 
         public static async Task Sec()
         {
@@ -57,7 +62,7 @@ namespace Crawler
             Console.WriteLine();
             Console.WriteLine("3  | Festival ");
             Console.WriteLine();
-            Console.WriteLine("6  | Trendler ");
+            Console.WriteLine("6  | Trendler (Tüm Etkinlikler)");
             Console.WriteLine();
             Console.WriteLine("9  | Komedi ");
             Console.WriteLine();

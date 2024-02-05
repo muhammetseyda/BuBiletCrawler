@@ -80,6 +80,48 @@ namespace Crawler
     
         }
 
+        public async Task<string> SelectKategoriName( string id)
+        {
+            string apiUrl = "https://apiv2.bubilet.com.tr/api/Etiket";
+            var kategori = "Kategori";
+            using (HttpClient client = new HttpClient())
+            {
+                try
+                {
+                    HttpResponseMessage response = await client.GetAsync(apiUrl);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string responseBody = await response.Content.ReadAsStringAsync();
+
+                        List<Etiket> etiket = JsonConvert.DeserializeObject<List<Etiket>>(responseBody);
+
+                        for (int i = 0; i < etiket.Count; i++)
+                        {
+                            Etiket etiket1 = etiket[i];
+                            if(etiket1.Id.ToString() == id)
+                            {
+                                kategori = etiket1.Adi;
+                            }
+
+                        }
+                        return kategori;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Error: " + response.StatusCode);
+                        return kategori;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Exception: " + ex.Message);
+                    return kategori;
+                }
+            }
+
+        }
+
         public async Task<int> KategoriCountEvent(int etiketId)
         {
             string apiUrl = $"https://apiv2.bubilet.com.tr/api/Anasayfa/{etiketId}/Etkinlikler";

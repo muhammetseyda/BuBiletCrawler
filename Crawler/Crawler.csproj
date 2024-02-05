@@ -72,11 +72,11 @@
     <Compile Include="bubiletCrawler.cs" />
     <Compile Include="City.cs" />
     <Compile Include="Helpers.cs" />
-    <Compile Include="hızCrawler.cs" />
     <Compile Include="Kategori.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProgressBar.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="pulladnbeer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
