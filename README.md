@@ -20,7 +20,7 @@ Program bir consol uygulamasıdır. İsteyen geliştiricilere .exe formatların�
 
 7. Çıktı
 
-![Uygulama Ekran Görüntüsü](https://github.com/muhammetseyda/Crawler/blob/master/4.png)
+![Uygulama Ekran Görüntüsü](https://github.com/muhammetseyda/Crawler/blob/master/5.png)
 
 # Dikkat Edilmesi Gereken Husular
 
